@@ -19,7 +19,7 @@ ext {
 }
 
 bootBuildImage {
-    imageName = "com.iportfolio/readingn-portal-notice:latest"
+    imageName = "com.iportfolio/readingn-notice:latest"
 }
 
 repositories {
