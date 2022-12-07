@@ -1,11 +1,11 @@
 package com.iportfolio.readingnportalnotice.dto.request;
 
 import com.iportfolio.readingnportalnotice.domain.Notice;
+import com.iportfolio.readingnportalnotice.domain.consts.Activate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,16 +19,16 @@ import org.springframework.lang.Nullable;
 public class ModifyNoticeRequest {
 
     @ApiModelProperty(value = "노출 타입 (1 : 메인에 노출할 특별공지, 0: 일반공지)")
-    @NotNull(message = "type cannot be empty")
+    @Nullable
     private Integer type;
 
     @ApiModelProperty(value = "특별공지의 노출 순서")
-    @NotNull(message = "idx cannot be empty")
+    @Nullable
     private Integer idx;
 
     @ApiModelProperty(value = "공지사항 타이틀, 타이틀은 유일 값")
     @Column(unique = true)
-    @NotBlank(message = "title cannot be empty")
+    @Nullable
     @Length(max = 100, message = "title must be at least 100 characters")
     private String title;
 
@@ -44,12 +44,12 @@ public class ModifyNoticeRequest {
 
     @ApiModelProperty(value = "공지사항 상세 내역")
     @Column(columnDefinition = "longtext")
-    @NotBlank(message = "content cannot be empty")
+    @Nullable
     private String content;
 
     @ApiModelProperty(value = "공지사항 노출 여부, (0: 비노출, 1: 노출)")
-    @NotNull(message = "activate cannot be empty")
-    private Short activate;
+    @NotNull
+    private Integer activate;
 
     @ApiModelProperty(value = "공지 시작일")
     @Nullable
@@ -67,7 +67,7 @@ public class ModifyNoticeRequest {
             .thumbnail(thumbnail)
             .description(description)
             .content(content)
-            .activate(activate)
+            .activate(Activate.convertToActivate(activate))
             .sendTime(startTime)
             .endTime(endTime)
             .build();

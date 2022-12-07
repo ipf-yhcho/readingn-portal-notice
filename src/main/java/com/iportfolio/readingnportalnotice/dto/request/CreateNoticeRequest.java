@@ -1,10 +1,11 @@
 package com.iportfolio.readingnportalnotice.dto.request;
 
 import com.iportfolio.readingnportalnotice.domain.Notice;
+import com.iportfolio.readingnportalnotice.domain.consts.Activate;
+import com.iportfolio.readingnportalnotice.domain.consts.SendStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -12,26 +13,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.lang.Nullable;
-
-/**
- * CREATE TABLE `t_notice` (
- *   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'primary key\n',
- *   `type` int(11) NOT NULL DEFAULT '0' COMMENT '노출 타입\\n1 : 메인에 노출할 특별공지\\n0: 일반공지',
- *   `idx` int(11) NOT NULL DEFAULT '0' COMMENT '특별공지의 노출 순서',
- *   `title` varchar(100) NOT NULL COMMENT '공지사항 타이틀\n\n타이틀은 유일 값\n',
- *   `thumbnail` varchar(200) DEFAULT NULL,
- *   `description` varchar(500) DEFAULT NULL,
- *   `content` longtext NOT NULL COMMENT '공지사항 상세 내역\n\nHTML 에디터로 작성하여 데이터가 매우 큼\n',
- *   `activate` tinyint(4) NOT NULL DEFAULT '0' COMMENT '공지사항 노출 여부\n\n0: 비노출\n1: 노출\n\n\n',
- *   `reg_time` datetime NOT NULL COMMENT '등록 일자\n',
- *   `start_time` datetime DEFAULT NULL,
- *   `end_time` datetime DEFAULT NULL,
- *   `send_time` datetime DEFAULT NULL COMMENT '공지사항 푸시 전송 요청 시각',
- *   `send_status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '공지사항 푸시 전송 결과 (-1: 실패, 0: 미발송, 1: 성공, 2: 발송중)',
- *   `send_target` varchar(10) DEFAULT NULL,
- *   PRIMARY KEY (`id`)
- * ) ENGINE=InnoDB AUTO_INCREMENT=597 DEFAULT CHARSET=utf8;
- */
 
 @ApiModel
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -47,7 +28,6 @@ public class CreateNoticeRequest {
     private Integer idx;
 
     @ApiModelProperty(value = "공지사항 타이틀, 타이틀은 유일 값")
-    @Column(unique = true)
     @NotBlank(message = "title cannot be empty")
     @Length(max = 100, message = "title can be up to 100 characters")
     private String title;
@@ -63,13 +43,12 @@ public class CreateNoticeRequest {
     private String description;
 
     @ApiModelProperty(value = "공지사항 상세 내역")
-    @Column(columnDefinition = "longtext")
     @NotBlank(message = "content cannot be empty")
     private String content;
 
     @ApiModelProperty(value = "공지사항 노출 여부, (0: 비노출, 1: 노출)")
     @NotNull(message = "activate cannot be empty")
-    private Short activate;
+    private Integer activate;
 
     @ApiModelProperty(value = "공지 시작일")
     @Nullable
@@ -85,6 +64,8 @@ public class CreateNoticeRequest {
     private String sendTarget;
 
     public Notice toNoticeEntity() {
+        LocalDateTime now = LocalDateTime.now();
+
         return Notice.builder()
             .type(type)
             .idx(idx)
@@ -92,9 +73,13 @@ public class CreateNoticeRequest {
             .thumbnail(thumbnail)
             .description(description)
             .content(content)
-            .activate(activate)
-            .sendTime(startTime)
+            .activate(Activate.convertToActivate(activate))
+            .regTime(now) // TODO
+            .startTime(startTime)
             .endTime(endTime)
+            .sendTime(now) // TODO
+            .sendStatus(SendStatus.UNSENT) // TODO
+            .sendTarget(sendTarget)
             .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.iportfolio.readingnportalnotice.dto.response;
 
 import com.iportfolio.readingnportalnotice.domain.Notice;
+import com.iportfolio.readingnportalnotice.domain.consts.SendStatus;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import lombok.Getter;
@@ -18,12 +19,12 @@ public class NoticeResponse implements Serializable {
 
     private final String content;
 
-    private final Short activate;
+    private final Integer activate;
 
     private final LocalDateTime regDateTime;
 
     public NoticeResponse(final Long id, final String title, final String content,
-        final Short activate, final LocalDateTime regDateTime) {
+        final Integer activate, final LocalDateTime regDateTime) {
 
         this.id = id;
         this.title = title;
@@ -37,7 +38,7 @@ public class NoticeResponse implements Serializable {
             notice.getId(),
             notice.getTitle(),
             notice.getContent(),
-            notice.getActivate(),
+            notice.getActivate().getCode(),
             notice.getRegTime()
         );
     }

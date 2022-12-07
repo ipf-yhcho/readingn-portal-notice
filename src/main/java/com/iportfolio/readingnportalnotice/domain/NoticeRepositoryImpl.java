@@ -1,8 +1,9 @@
 package com.iportfolio.readingnportalnotice.domain;
 
 import static com.iportfolio.readingnportalnotice.domain.QNotice.notice;
-import static com.iportfolio.readingnportalnotice.domain.consts.NoticeConst.ACTIVATED;
+import static com.iportfolio.readingnportalnotice.domain.consts.Activate.ACTIVATED;
 
+import com.iportfolio.readingnportalnotice.domain.consts.Activate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -22,7 +23,7 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
     }
 
     @Override
-    public Page<Notice> findByKeyword(final Pageable pageable, final String keyword, final Short activate) {
+    public Page<Notice> findByKeyword(final Pageable pageable, final String keyword, final Activate activate) {
         final JPQLQuery<Notice> jpqlQuery = jpaQueryFactory
                 .selectFrom(notice)
                 .where(

@@ -1,6 +1,6 @@
 package com.iportfolio.readingnportalnotice.web;
 
-import static com.iportfolio.readingnportalnotice.domain.consts.NoticeConst.ACTIVATED;
+import static com.iportfolio.readingnportalnotice.domain.consts.Activate.ACTIVATED;
 
 import com.iportfolio.readingnportalnotice.application.NoticeService;
 import com.iportfolio.readingnportalnotice.dto.request.CreateNoticeRequest;
@@ -44,11 +44,9 @@ public class NoticeController {
      * @return
      */
     @ApiOperation(
-        value = "공지사항 리스트 조회 / 키워드 검색",
-        produces = "application/json",
-        response = ApiResponse.class
+        value = "공지사항 리스트 조회 / 키워드 검색"
     )
-    @GetMapping("/qna-action")
+    @GetMapping // ("/qna-action")
     @ResponseStatus(HttpStatus.OK)
     public ApiResponse<NoticeResponses> getActivatedNotices(
         @RequestParam(defaultValue = "1") final Integer page,
@@ -68,10 +66,10 @@ public class NoticeController {
     @ApiOperation(
         value = "공지사항 상세 조회"
     )
-    @GetMapping("/{postId}")
+    @GetMapping("/{noticeId}")
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<NoticeDetailResponse> getNoticeDetail(@PathVariable final Long postId) {
-        NoticeDetailResponse response = noticeService.getNoticeDetail(postId);
+    public ApiResponse<NoticeDetailResponse> getNoticeDetail(@PathVariable final Long noticeId) {
+        NoticeDetailResponse response = noticeService.getNoticeDetail(noticeId);
 
         return new ApiResponse<>(response, ResponseCode.OK);
     }
@@ -89,36 +87,40 @@ public class NoticeController {
     public ApiResponse<Void> createNotice(
         @Valid @RequestBody CreateNoticeRequest createNoticeRequest) {
 
-        return null;
+        noticeService.createNotice(createNoticeRequest);
+
+        return new ApiResponse<>(null, ResponseCode.CREATED);
     }
 
     /**
-     *
-     * @param postId
+     * @param noticeId
      * @param modifyNoticeRequest
      * @return
      */
     @ApiOperation(
         value = "공지사항 수정"
     )
-    @PatchMapping("/{postId}")
-    public ApiResponse<Void> modifyNotice(@PathVariable Long postId,
+    @PatchMapping("/{noticeId}")
+    public ApiResponse<Void> modifyNotice(@PathVariable Long noticeId,
         @Valid @RequestBody ModifyNoticeRequest modifyNoticeRequest) {
 
-        return null;
+        noticeService.modifyNotice(noticeId, modifyNoticeRequest);
+
+        return new ApiResponse<>(null, ResponseCode.OK);
     }
 
     /**
-     *
-     * @param postId
+     * @param noticeId
      * @return
      */
     @ApiOperation(
         value = "공지사항 삭제"
     )
-    @DeleteMapping("/{postId}")
-    public ApiResponse<Void> deleteNotice(@PathVariable Long postId) {
+    @DeleteMapping("/{noticeId}")
+    public ApiResponse<Void> deleteNotice(@PathVariable Long noticeId) {
 
-        return null;
+        noticeService.deleteNotice(noticeId);
+
+        return new ApiResponse<>(null, ResponseCode.OK);
     }
 }
