@@ -20,10 +20,12 @@ public class NoticeResponses implements Serializable {
 
     private final PageInfo pageInfo;
 
-    public NoticeResponses(final List<Notice> notices, final Integer pageNumber, final Integer pageSize, final Integer totalPage, final Long totalElement) {
+    public NoticeResponses(final List<Notice> notices, final Integer pageNumber,
+        final Integer pageSize, final Integer totalPage, final Long totalElement) {
+
         this.noticeList = notices.stream()
-                .map(NoticeResponse::from)
-                .collect(Collectors.toUnmodifiableList());
+            .map(NoticeResponse::from)
+            .collect(Collectors.toUnmodifiableList());
 
         this.pageInfo = new PageInfo(pageNumber, pageSize, totalPage, totalElement);
     }

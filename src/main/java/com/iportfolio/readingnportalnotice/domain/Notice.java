@@ -44,7 +44,7 @@ public class Notice {
     private String content;
 
     @NotNull
-    private Integer activate;
+    private Short activate;
 
     @NotNull
     private LocalDateTime regTime;
@@ -68,7 +68,7 @@ public class Notice {
     @Builder
     private Notice(final Long id, final Integer type, final Integer idx, final String title,
         final String thumbnail, final String description, final String content,
-        final Integer activate, final LocalDateTime regTime,
+        final Short activate, final LocalDateTime regTime,
         @Nullable final LocalDateTime startTime, @Nullable final LocalDateTime endTime,
         @Nullable final LocalDateTime sendTime, final Integer sendStatus, final String sendTarget) {
 
@@ -90,7 +90,7 @@ public class Notice {
 
     public static Notice of(final Long id, final Integer type, final Integer idx, final String title,
         final String thumbnail, final String description, final String content,
-        final Integer activate, final LocalDateTime regTime,
+        final Short activate, final LocalDateTime regTime,
         @Nullable final LocalDateTime startTime, @Nullable final LocalDateTime endTime,
         @Nullable final LocalDateTime sendTime, final Integer sendStatus, final String sendTarget) {
 

@@ -22,7 +22,7 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
     }
 
     @Override
-    public Page<Notice> findByKeyword(final Pageable pageable, final String keyword, final Integer activate) {
+    public Page<Notice> findByKeyword(final Pageable pageable, final String keyword, final Short activate) {
         final JPQLQuery<Notice> jpqlQuery = jpaQueryFactory
                 .selectFrom(notice)
                 .where(

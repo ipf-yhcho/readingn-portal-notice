@@ -20,13 +20,15 @@ public class NoticeService {
         this.noticeRepository = noticeRepository;
     }
 
-    public NoticeResponses getActivatedNotices(final Pageable pageable, final String keyword, final Integer activate) {
+    public NoticeResponses getActivatedNotices(final Pageable pageable, final String keyword,
+        final Short activate) {
+
         return NoticeResponses.of(noticeRepository.findByKeyword(pageable, keyword, activate));
     }
 
     public NoticeDetailResponse getNoticeDetail(@PathVariable final Long postId) {
         Notice notice = noticeRepository.findById(postId)
-                .orElseThrow(RuntimeException::new);
+            .orElseThrow(RuntimeException::new);
 
         return NoticeDetailResponse.from(notice);
     }

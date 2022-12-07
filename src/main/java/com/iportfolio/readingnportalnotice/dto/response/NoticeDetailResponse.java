@@ -26,13 +26,13 @@ public class NoticeDetailResponse implements Serializable {
 
     private final String description;
 
-    private final Integer activate;
+    private final Short activate;
 
     private final LocalDateTime regTime;
 
     public NoticeDetailResponse(final Long id, final Integer type, final Integer idx,
         final String title, final String content, final String thumbnail, final String description,
-        final Integer activate, final LocalDateTime regTime) {
+        final Short activate, final LocalDateTime regTime) {
 
         this.id = id;
         this.type = type;

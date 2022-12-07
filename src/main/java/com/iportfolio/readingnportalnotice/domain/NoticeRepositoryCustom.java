@@ -5,5 +5,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface NoticeRepositoryCustom {
 
-    Page<Notice> findByKeyword(final Pageable pageable, final String keyword, final Integer activate);
+    Page<Notice> findByKeyword(final Pageable pageable, final String keyword, final Short activate);
 }

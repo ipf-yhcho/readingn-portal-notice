@@ -18,12 +18,12 @@ public class NoticeResponse implements Serializable {
 
     private final String content;
 
-    private final Integer activate;
+    private final Short activate;
 
     private final LocalDateTime regDateTime;
 
     public NoticeResponse(final Long id, final String title, final String content,
-        final Integer activate, final LocalDateTime regDateTime) {
+        final Short activate, final LocalDateTime regDateTime) {
 
         this.id = id;
         this.title = title;

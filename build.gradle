@@ -18,6 +18,10 @@ ext {
     swaggerVersion = "3.0.0"
 }
 
+bootBuildImage {
+    imageName = "com.iportfolio/readingn-portal-notice:latest"
+}
+
 repositories {
     mavenCentral()
 }
@@ -38,7 +42,7 @@ dependencies {
 
     // Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
 
     // H2 Database
     runtimeOnly 'com.h2database:h2'
