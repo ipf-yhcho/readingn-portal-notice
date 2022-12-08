@@ -5,7 +5,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class PageInfo {
+public class PagingInfo {
 
     private final Integer pageNumber;
 
@@ -15,7 +15,9 @@ public class PageInfo {
 
     private final Long totalElement;
 
-    public PageInfo(final Integer pageNumber, final Integer pageSize, final Integer totalPage, final Long totalElement) {
+    public PagingInfo(final Integer pageNumber, final Integer pageSize, final Integer totalPage,
+        final Long totalElement) {
+
         this.pageNumber = pageNumber;
         this.pageSize = pageSize;
         this.totalPage = totalPage;

@@ -8,7 +8,7 @@ import lombok.ToString;
 
 @Getter
 @ToString
-public class NoticeResponse implements Serializable {
+public class NoticeSimpleResponse implements Serializable {
 
     private static final long serialVersionUID = 8873608209660006156L;
 
@@ -22,8 +22,8 @@ public class NoticeResponse implements Serializable {
 
     private final LocalDateTime regDateTime;
 
-    public NoticeResponse(final Long id, final String title, final String content,
-        final Integer activate, final LocalDateTime regDateTime) {
+    public NoticeSimpleResponse(final Long id, final String title, final String content, final Integer activate,
+        final LocalDateTime regDateTime) {
 
         this.id = id;
         this.title = title;
@@ -32,8 +32,8 @@ public class NoticeResponse implements Serializable {
         this.regDateTime = regDateTime;
     }
 
-    public static NoticeResponse from(Notice notice) {
-        return new NoticeResponse(
+    public static NoticeSimpleResponse from(Notice notice) {
+        return new NoticeSimpleResponse(
             notice.getId(),
             notice.getTitle(),
             notice.getContent(),

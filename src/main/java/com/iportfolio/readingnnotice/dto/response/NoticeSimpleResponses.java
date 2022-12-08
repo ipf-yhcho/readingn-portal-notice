@@ -2,7 +2,7 @@ package com.iportfolio.readingnnotice.dto.response;
 
 
 import com.iportfolio.readingnnotice.domain.Notice;
-import com.iportfolio.readingnnotice.dto.response.template.PageInfo;
+import com.iportfolio.readingnnotice.dto.response.template.PagingInfo;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,26 +12,26 @@ import org.springframework.data.domain.Page;
 
 @Getter
 @ToString
-public class NoticeResponses implements Serializable {
+public class NoticeSimpleResponses implements Serializable {
 
     private static final long serialVersionUID = -7652374761863763491L;
 
-    private final List<NoticeResponse> noticeList;
+    private final List<NoticeSimpleResponse> noticeList;
 
-    private final PageInfo pageInfo;
+    private final PagingInfo pageInfo;
 
-    public NoticeResponses(final List<Notice> notices, final Integer pageNumber,
-        final Integer pageSize, final Integer totalPage, final Long totalElement) {
+    public NoticeSimpleResponses(final List<Notice> notices, final Integer pageNumber, final Integer pageSize,
+        final Integer totalPage, final Long totalElement) {
 
         this.noticeList = notices.stream()
-            .map(NoticeResponse::from)
+            .map(NoticeSimpleResponse::from)
             .collect(Collectors.toUnmodifiableList());
 
-        this.pageInfo = new PageInfo(pageNumber, pageSize, totalPage, totalElement);
+        this.pageInfo = new PagingInfo(pageNumber, pageSize, totalPage, totalElement);
     }
 
-    public static NoticeResponses of(final Page<Notice> page) {
-        return new NoticeResponses(
+    public static NoticeSimpleResponses of(final Page<Notice> page) {
+        return new NoticeSimpleResponses(
             page.getContent(),
             page.getNumber() + 1,
             page.getSize(),

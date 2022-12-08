@@ -1,13 +1,14 @@
 package com.iportfolio.readingnnotice.domain.consts;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @ToString
-public enum SendStatus {
+public enum PushStatus {
 
     FAIL(-1)
     , UNSENT(0)

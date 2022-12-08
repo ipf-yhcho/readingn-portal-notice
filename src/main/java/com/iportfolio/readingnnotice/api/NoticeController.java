@@ -6,7 +6,7 @@ import com.iportfolio.readingnnotice.business.NoticeService;
 import com.iportfolio.readingnnotice.dto.request.CreateNoticeRequest;
 import com.iportfolio.readingnnotice.dto.request.ModifyNoticeRequest;
 import com.iportfolio.readingnnotice.dto.response.NoticeDetailResponse;
-import com.iportfolio.readingnnotice.dto.response.NoticeResponses;
+import com.iportfolio.readingnnotice.dto.response.NoticeSimpleResponses;
 import com.iportfolio.readingnnotice.dto.response.template.ApiResponse;
 import com.iportfolio.readingnnotice.dto.response.template.ResponseCode;
 import io.swagger.annotations.ApiOperation;
@@ -46,21 +46,21 @@ public class NoticeController {
     @ApiOperation(
         value = "공지사항 리스트 조회 / 키워드 검색"
     )
-    @GetMapping // ("/qna-action")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<NoticeResponses> getActivatedNotices(
+    public ApiResponse<NoticeSimpleResponses> getActivatedNotices(
         @RequestParam(defaultValue = "1") final Integer page,
         @RequestParam(defaultValue = "10") final Integer limit,
         String keyword) {
 
-        NoticeResponses response = noticeService.getActivatedNotices(
+        NoticeSimpleResponses response = noticeService.getActivatedNotices(
             PageRequest.of(page - 1, limit), keyword, ACTIVATED);
 
         return new ApiResponse<>(response, ResponseCode.OK);
     }
 
     /**
-     * @param postId
+     * @param noticeId
      * @return
      */
     @ApiOperation(
@@ -75,7 +75,6 @@ public class NoticeController {
     }
 
     /**
-     *
      * @param createNoticeRequest
      * @return
      */

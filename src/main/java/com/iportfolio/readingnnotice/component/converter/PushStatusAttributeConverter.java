@@ -1,15 +1,15 @@
 package com.iportfolio.readingnnotice.component.converter;
 
-import com.iportfolio.readingnnotice.domain.consts.SendStatus;
+import com.iportfolio.readingnnotice.domain.consts.PushStatus;
 import java.util.Arrays;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter(autoApply = true)
-public class SendStatusAttributeConverter implements AttributeConverter<SendStatus, Integer> {
+public class PushStatusAttributeConverter implements AttributeConverter<PushStatus, Integer> {
 
     @Override
-    public Integer convertToDatabaseColumn(SendStatus status) {
+    public Integer convertToDatabaseColumn(PushStatus status) {
         if (status == null) {
             return null;
         }
@@ -18,12 +18,12 @@ public class SendStatusAttributeConverter implements AttributeConverter<SendStat
     }
 
     @Override
-    public SendStatus convertToEntityAttribute(Integer code) {
+    public PushStatus convertToEntityAttribute(Integer code) {
         if (code == null) {
             return null;
         }
 
-        return Arrays.stream(SendStatus.values())
+        return Arrays.stream(PushStatus.values())
             .filter(status -> status.compareCode(code))
             .findFirst()
             .orElse(null);

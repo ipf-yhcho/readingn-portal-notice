@@ -18,20 +18,20 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     public NoticeRepositoryImpl(final JPAQueryFactory jpaQueryFactory) {
-        log.info("{} Constructor called..", this.getClass().getName());
+        log.debug("{} Constructor called..", this.getClass().getName());
         this.jpaQueryFactory = jpaQueryFactory;
     }
 
     @Override
     public Page<Notice> findByKeyword(final Pageable pageable, final String keyword, final Activate activate) {
         final JPQLQuery<Notice> jpqlQuery = jpaQueryFactory
-                .selectFrom(notice)
-                .where(
-                        containKeyword(keyword),
-                        isActivated()
-                )
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize());
+            .selectFrom(notice)
+            .where(
+                containKeyword(keyword),
+                isActivated()
+            )
+            .offset(pageable.getOffset())
+            .limit(pageable.getPageSize());
 
         return PageableExecutionUtils.getPage(jpqlQuery.fetch(), pageable, jpqlQuery::fetchCount);
     }

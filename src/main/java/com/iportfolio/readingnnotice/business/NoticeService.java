@@ -6,7 +6,7 @@ import com.iportfolio.readingnnotice.domain.consts.Activate;
 import com.iportfolio.readingnnotice.dto.request.CreateNoticeRequest;
 import com.iportfolio.readingnnotice.dto.request.ModifyNoticeRequest;
 import com.iportfolio.readingnnotice.dto.response.NoticeDetailResponse;
-import com.iportfolio.readingnnotice.dto.response.NoticeResponses;
+import com.iportfolio.readingnnotice.dto.response.NoticeSimpleResponses;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -28,21 +28,19 @@ public class NoticeService {
     }
 
     /**
-     *
      * @param pageable
      * @param keyword
      * @param activate
      * @return
      */
     @Transactional(readOnly = true)
-    public NoticeResponses getActivatedNotices(final Pageable pageable, final String keyword,
+    public NoticeSimpleResponses getActivatedNotices(final Pageable pageable, final String keyword,
         final Activate activate) {
 
-        return NoticeResponses.of(noticeRepository.findByKeyword(pageable, keyword, activate));
+        return NoticeSimpleResponses.of(noticeRepository.findByKeyword(pageable, keyword, activate));
     }
 
     /**
-     *
      * @param postId
      * @return
      */
@@ -55,39 +53,29 @@ public class NoticeService {
     }
 
     /**
-     *
      * @param createNoticeRequest
      */
-    public void createNotice(
-        @Valid @RequestBody CreateNoticeRequest createNoticeRequest) {
-
+    public void createNotice(@Valid @RequestBody CreateNoticeRequest createNoticeRequest) {
         Notice notice = noticeRepository.save(createNoticeRequest.toNoticeEntity());
-
-        log.info("NoticeService.createNotice: {} is created", notice);
+        log.debug("NoticeService.createNotice: {} is created", notice);
     }
 
     /**
-     *
      * @param postId
      * @param modifyNoticeRequest
      */
-    public void modifyNotice(@PathVariable Long postId,
-        @Valid @RequestBody ModifyNoticeRequest modifyNoticeRequest) {
-
+    public void modifyNotice(@PathVariable Long postId, @Valid @RequestBody ModifyNoticeRequest modifyNoticeRequest) {
         Notice notice = noticeRepository.findById(postId)
             .orElseThrow(RuntimeException::new);
 
         notice.modifyFields(modifyNoticeRequest.toNoticeEntity());
-
-        log.info("NoticeService.modifyNotice: {} is modified", notice);
+        log.debug("NoticeService.modifyNotice: {} is modified", notice);
     }
 
     /**
-     *
      * @param postId
      */
     public void deleteNotice(@PathVariable Long postId) {
-
         noticeRepository.deleteById(postId);
     }
 }

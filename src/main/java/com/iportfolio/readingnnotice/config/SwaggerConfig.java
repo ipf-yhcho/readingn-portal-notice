@@ -26,8 +26,8 @@ public class SwaggerConfig {
             .produces(Set.of(APPLICATION_JSON_CHARSET_UTF_8))
             .apiInfo(
                 new ApiInfoBuilder()
-                    .title(PROJECT_NAME + "API")
-                    .description(PROJECT_NAME + "API Docs")
+                    .title(PROJECT_NAME + " API")
+                    .description(PROJECT_NAME + " API Docs")
                     .build()
             )
             .select()

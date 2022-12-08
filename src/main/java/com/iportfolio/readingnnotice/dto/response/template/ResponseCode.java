@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 @ToString
 public enum ResponseCode {
 
-    OK(HttpStatus.OK),
-    CREATED(HttpStatus.CREATED);
+    OK(HttpStatus.OK)
+    , CREATED(HttpStatus.CREATED);
 
     private final Integer status;
 

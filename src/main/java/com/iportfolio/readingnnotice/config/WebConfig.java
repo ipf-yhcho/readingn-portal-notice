@@ -10,8 +10,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(final FormatterRegistry registry) {
-
-        // DateTimeFormatter
         final DateTimeFormatterRegistrar dateTimeFormatterRegistrar = new DateTimeFormatterRegistrar();
         dateTimeFormatterRegistrar.setUseIsoFormat(true); // Use ISO format
         dateTimeFormatterRegistrar.registerFormatters(registry);

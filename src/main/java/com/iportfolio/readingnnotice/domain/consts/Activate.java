@@ -1,16 +1,18 @@
 package com.iportfolio.readingnnotice.domain.consts;
 
 import java.util.Arrays;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 @ToString
 public enum Activate {
 
-    ACTIVATED(1), NON_ACTIVATED(0);
+    ACTIVATED(1)
+    , NON_ACTIVATED(0);
 
     private final Integer code;
 
@@ -18,7 +20,7 @@ public enum Activate {
         return this.code.equals(code);
     }
 
-    public static Activate convertToActivate(int code) {
+    public static Activate valueOf(int code) {
         return Arrays.stream(Activate.values())
             .filter(activate -> activate.compareCode(code))
             .findFirst()
